@@ -1,0 +1,20 @@
+import datetime as dt
+from matplotlib import style
+import pandas as pd
+import pandas_datareader.data as web
+
+%matplotlib notebook
+import matplotlib.pyplot as plt
+
+style.use('ggplot')
+
+start = dt.datetime(2015, 1, 1) #date within the past 5 years
+end = dt.datetime.now()
+df = web.DataReader("TSLA", 'iex', start, end) ##Morningstar isn't working, neither is google finance, dunno why
+df.reset_index(inplace=True)
+
+df.to_csv('TSLA.csv')
+df = pd.read_csv('tsla.csv', parse_dates=True, index_col=0)
+
+df.plot()
+plt.show()
